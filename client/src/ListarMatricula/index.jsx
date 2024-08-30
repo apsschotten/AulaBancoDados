@@ -1,63 +1,64 @@
 import { useEffect, useState } from 'react';
 import '../globals.css';
 
-export default function ReadMatriculas() {
-  const [matriculas, setMatriculas] = useState([]);
+export default function ReadPokemons() {
+  const [pokemons, setPokemons] = useState([]);
 
 
   useEffect(() => {
-    const fetchMatriculas = async () => {
+    const fetchPokemons = async () => {
       try {
-        const response = await fetch('http://localhost:5000/matriculas');
+        const response = await fetch('einszweidrei-shard-00-02.mqo9c.mongodb.net:27017');
         const data = await response.json();
-        setMatriculas(data);
+        setPokemons(data);
       } catch (error) {
-        console.error('Erro ao buscar as matrículas:', error);
+        console.error('Erro ao buscar os pokémons:', error);
       }
     };
 
-    fetchMatriculas();
+    fetchPokemons();
   }, []);
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/matriculas/${id}`, {
+      const response = await fetch(`einszweidrei-shard-00-02.mqo9c.mongodb.net:27017${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
 
-        setMatriculas(matriculas.filter((matricula) => matricula._id !== id));
-        alert('Matrícula excluída com sucesso!');
+        setPokemons(FstGen.filter((pokemons) => pokemons._id !== id));
+        alert('Pokémon excluído com sucesso!');
       } else {
-        alert('Erro ao excluir matrícula.');
+        alert('Erro ao excluir pokémon.');
       }
     } catch (error) {
-      console.error('Erro ao excluir matrícula:', error);
+      console.error('Erro ao excluir pokémon:', error);
     }
   };
 
   return (
     <div className='container'>
-      <h2>Lista de Matrículas</h2>
+      <h2>Pokémons</h2>
       <table  className="table-container" border="1">
         <thead>
           <tr>
-            <th>Código Matrícula</th>
-            <th>Nome do Aluno</th>
-            <th>Turma</th>
-            <th>Curso</th>
-            <th>Ações</th>
+            <th>Código do Site</th>
+            <th>Número</th>
+            <th>Nome</th>
+            <th>Tipagem</th>
+            <th>Tipagem Secundária</th>
+            <th>Descrição</th>
           </tr>
         </thead>
         <tbody>
-          {matriculas.map((matricula) => (
-            <tr key={matricula._id}>
-              <td>{matricula._id}</td>
-              <td>{matricula.aluno}</td>
-              <td>{matricula.turma}</td>
-              <td>{matricula.curso}</td>
+          {pokemons.map((pokemons) => (
+            <tr key={pokemons._id}>
+              <td>{pokemons._id}</td>
+              <td>{pokemons.aluno}</td>
+              <td>{pokemons.turma}</td>
+              <td>{pokemons.curso}</td>
               <td>
-                <button onClick={() => handleDelete(matricula._id)}>Excluir</button>
+                <button onClick={() => handleDelete(pokemons._id)}>Excluir.</button>
               </td>
             </tr>
           ))}

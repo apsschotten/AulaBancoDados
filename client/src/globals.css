@@ -1,8 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+header{
+  background-color: #242424;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.bTop{
+  display: grid;
+  grid-template-columns: 175px 175px 175px;
+}
+
+.bHeader{
+  height: 35px;
+  width: 150px;
+  background-color: #242424;
+  color: #fff;
+  border: 0;
+  font-size: 15px;
+}
+
+.bHeader:hover{
+  transition: 0.5s;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+footer{
+  background-color: #242424;
+}
 
 body{
-    font-family: "Inter", sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-optical-sizing: auto;
     font-weight: weight;
     font-style: normal;

@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function UpdatePokemon() {
-  const [numero_pokedex, setNumero] = useState('');
-  const [nome, setNome] = useState('');
-  const [tipagem, setTipagem] = useState('');
-  const [tipagemExt, setTipagemExt] = useState('');
-  const [descricao, setDescricao] = useState('');
+export default function UpdateMatricula() {
+  const [id, setId] = useState('');
+  const [aluno, setAluno] = useState('');
+  const [turma, setTurma] = useState('');
+  const [curso, setCurso] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const atualizacao = { numero_pokedex, nome, tipagem, tipagemExt, descricao };
+    const atualizacao = { aluno, turma, curso };
 
     try {
-      const response = await fetch(`einszweidrei-shard-00-02.mqo9c.mongodb.net:27017${id}`, {
+      const response = await fetch(`http://localhost:5000/matriculas/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -23,56 +22,49 @@ export default function UpdatePokemon() {
         body: JSON.stringify(atualizacao),
       });
       if (response.ok) {
-        alert('Pokémon atualizada com sucesso!');
+        alert('Matrícula atualizada com sucesso!');
         navigate("/matriculas");
       } else {
-        alert('Erro ao atualizar pokémon.');
+        alert('Erro ao atualizar matrícula.');
       }
     } catch (error) {
-      console.error('Erro ao atualizar pokémon:', error);
+      console.error('Erro ao atualizar matrícula:', error);
     }
   };
 
   return (
     <div className='container'>
     <form  className="form-container" onSubmit={handleSubmit}>
-      <h2>Editar Pokémon</h2>
+      <h2>Atualizar Matrícula</h2>
       <input
         type="text"
-        placeholder="Número do Pokémon"
-        value={numero_pokedex}
-        onChange={(e) => setNumero(e.target.value)}
+        placeholder="ID da Matrícula"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
         required
       />
       <input
         type="text"
-        placeholder="Nome do Pokémon"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
+        placeholder="Nome do Aluno"
+        value={aluno}
+        onChange={(e) => setAluno(e.target.value)}
         required
       />
       <input
         type="text"
-        placeholder="Tipagem"
-        value={tipagem}
-        onChange={(e) => setTipagem(e.target.value)}
+        placeholder="Turma"
+        value={turma}
+        onChange={(e) => setTurma(e.target.value)}
         required
       />
       <input
         type="text"
-        placeholder="Tipagem Secundária"
-        value={tipagemExt}
-        onChange={(e) => setTipagemExt(e.target.value)}
+        placeholder="Curso"
+        value={curso}
+        onChange={(e) => setCurso(e.target.value)}
         required
       />
-      <input
-        type="text"
-        placeholder="Descrição"
-        value={descricao}
-        onChange={(e) => setDescricao(e.target.value)}
-        required
-      />
-      <button type="submit">Atualizar!</button>
+      <button type="submit">Atualizar Matrícula</button>
     </form>
     </div>
   );

@@ -1,64 +1,63 @@
 import { useEffect, useState } from 'react';
 import '../globals.css';
 
-export default function ReadPokemons() {
-  const [pokemons, setPokemons] = useState([]);
+export default function ReadMatriculas() {
+  const [matriculas, setMatriculas] = useState([]);
 
 
   useEffect(() => {
-    const fetchPokemons = async () => {
+    const fetchMatriculas = async () => {
       try {
-        const response = await fetch('einszweidrei-shard-00-02.mqo9c.mongodb.net:27017');
+        const response = await fetch('http://localhost:5000/matriculas');
         const data = await response.json();
-        setPokemons(data);
+        setMatriculas(data);
       } catch (error) {
-        console.error('Erro ao buscar os pokémons:', error);
+        console.error('Erro ao buscar as matrículas:', error);
       }
     };
 
-    fetchPokemons();
+    fetchMatriculas();
   }, []);
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`einszweidrei-shard-00-02.mqo9c.mongodb.net:27017${id}`, {
+      const response = await fetch(`http://localhost:5000/matriculas/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
 
-        setPokemons(FstGen.filter((pokemons) => pokemons._id !== id));
-        alert('Pokémon excluído com sucesso!');
+        setMatriculas(matriculas.filter((matricula) => matricula._id !== id));
+        alert('Matrícula excluída com sucesso!');
       } else {
-        alert('Erro ao excluir pokémon.');
+        alert('Erro ao excluir matrícula.');
       }
     } catch (error) {
-      console.error('Erro ao excluir pokémon:', error);
+      console.error('Erro ao excluir matrícula:', error);
     }
   };
 
   return (
     <div className='container'>
-      <h2>Pokémons</h2>
+      <h2>Lista de Matrículas</h2>
       <table  className="table-container" border="1">
         <thead>
           <tr>
-            <th>Código do Site</th>
-            <th>Número</th>
-            <th>Nome</th>
-            <th>Tipagem</th>
-            <th>Tipagem Secundária</th>
-            <th>Descrição</th>
+            <th>Código Matrícula</th>
+            <th>Nome do Aluno</th>
+            <th>Turma</th>
+            <th>Curso</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {pokemons.map((pokemons) => (
-            <tr key={pokemons._id}>
-              <td>{pokemons._id}</td>
-              <td>{pokemons.aluno}</td>
-              <td>{pokemons.turma}</td>
-              <td>{pokemons.curso}</td>
+          {matriculas.map((matricula) => (
+            <tr key={matricula._id}>
+              <td>{matricula._id}</td>
+              <td>{matricula.aluno}</td>
+              <td>{matricula.turma}</td>
+              <td>{matricula.curso}</td>
               <td>
-                <button onClick={() => handleDelete(pokemons._id)}>Excluir.</button>
+                <button onClick={() => handleDelete(matricula._id)}>Excluir</button>
               </td>
             </tr>
           ))}
